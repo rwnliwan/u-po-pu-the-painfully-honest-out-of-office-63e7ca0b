@@ -97,4 +97,21 @@ deprecated anywhere here.
 
 ## Bundle / check (real numbers, round 2)
 
-(To be filled with real numbers after re-bundle + re-check.)
+- Bundle 2: same path, 143,388 bytes, sha256
+  `5e79a4588aae203623c0178d72837efb09db34b31335c9cdcc07dd55b0fc4d47`,
+  from commit `281ed25498320df7b0bb41298f186c9dc93c0d8e`, receipt
+  2026-11-26T02:38:28.545Z.
+- Check 2 (same commit + bundle 2): **13 passed, 1 failed, 5 skipped**,
+  5 checked at submission — the expected builder outcome.
+  - `thinking_revised`: PASS — trial-log.md takes its final content from
+    2 messages that write/edit it. The round-1 fix worked.
+  - `thinking_priced`: still FAIL (0 usage rows on the builder session) —
+    expected; the coordinator re-bundles with usage rows attached before
+    submit. Nothing else for the builder to fix here.
+  - Other round-2 figures: `thinking_reproduces` 111/113 lines (98.2%),
+    `thinking_wellformed` 54 messages / 27 tool results,
+    `thinking_in_window` 55 timestamps, `thinking_turns` 23,
+    `thinking_own_work` 111/113, snapshot 5 files / 8,944 bytes.
+- This revision (round-2 numbers) is the trial-log's 3rd writing message;
+  re-commit → re-bundle → re-check once more so the submitted bundle
+  carries the complete log. Expected final check: 13/1 again.
