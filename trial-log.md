@@ -61,11 +61,40 @@ deprecated anywhere here.
 
 ## Trials
 
-- T1: `node main.ts` with `ENTRY_OUTPUT` pointed at a scratch file — entry
-  written byte-identical to the constant, 88 chars, one sentence, no
-  trailing newline.
+- T1: `node main.ts` with `ENTRY_OUTPUT=/tmp/ooo-test-entry.txt` — output
+  `wrote 88 chars to /tmp/ooo-test-entry.txt`; file content byte-identical
+  to the chosen entry, `len()` 88, exactly 1 period (one sentence).
 - T2: local gate check — UTF-8, 1–200 chars, non-blank: pass.
 
-## Bundle / check
+## Bundle / check (real numbers, round 1)
 
-(To be filled with real numbers after bundle + check run.)
+- Bundle 1: `u-po-pu-the-painfully-honest-out-of-office-63e7ca0b-bundle.tar.gz`,
+  136,853 bytes, sha256
+  `b618a3098afcfb0d7b534cf0c0852a0db3d5d5f12eb1735c684a0b69dfadcfc5`,
+  from commit `0f2b7b1b24c92ee3791d505cd3fa874157315f26`, receipt
+  2026-11-26T02:37:51.007Z. Kit `bundle_sha256` verified:
+  `658ffb7c23334c0e9505a09ae31dfef3a2417719d67aaf189f99b76b3f9ae227`
+  (matches the live API value).
+- Check 1 (same commit + bundle 1): **12 passed, 2 failed, 5 skipped**,
+  5 checked at submission. Passes include `competition_open`,
+  `snapshot` (5 files, 7,221 bytes), `license_osi` (MIT), `entrypoint`
+  (main.ts, node22), `transcripts_present` / `transcripts_recorded`
+  (1 muse-app session, 46 messages), `thinking_wellformed`,
+  `thinking_in_window` (47 timestamps inside the window),
+  `thinking_reproduces` (84 of 86 counted lines authored, 97.6%, ≥30%
+  required; main.ts 12 authored lines), `thinking_turns` (19 turns),
+  `transcripts_run_record`, `thinking_own_work` (84/86 own lines).
+- Check 1 failures:
+  - `thinking_priced`: 0 usage rows on the builder (subagent) session —
+    expected for a builder bundle; the coordinator re-bundles with usage
+    rows attached before submit.
+  - `thinking_revised`: no file took its final content from ≥2 messages
+    that write/edit it (main.ts written once, in full). Fix applied in
+    this revision: this trial-log now records the real round-1
+    bundle/check numbers above, i.e. its final content comes from 2
+    writing messages (initial write + this genuine revision), then
+    re-commit → re-bundle → re-check (round 2 below).
+
+## Bundle / check (real numbers, round 2)
+
+(To be filled with real numbers after re-bundle + re-check.)
